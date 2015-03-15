@@ -37,11 +37,44 @@ public class LoginController extends Controller {
 		}
 	}
 
-	public static Result showLogin() {
+	@Transactional
+	public static Result cadastrar() {
+
+		Form<Usuario> form = usuarioForm.bindFromRequest();
+
+		String nome = form.field("nome").value();
+		String email = form.field("email").value();
+		String senha = form.field("senha").value();
+		String confirmaSenha = form.field("confirmarSenha").value();
+		
+		if(!senha.equals(confirmaSenha)){
+			return ok(views.html.cadastrar.render(usuarioForm, "O campo repetir senha deve estar igual ao campo senha"));
+		}
+		
+		Usuario user;
+		
+		try{
+			user = new Usuario(nome, email, senha);
+		}catch(Exception e){
+			return ok(views.html.cadastrar.render(usuarioForm, e.getMessage()));
+		}
+		
+		salvaObjeto(user);
+		return showLoginPage();
+	}
+	
+	public static Result showLoginPage() {
 		if (session().get("user") != null) {
 			return redirect(routes.Application.index());
 		}
 		return ok(views.html.login.render(usuarioForm));
+	}
+	
+	public static Result showCadastroPage() {
+		if (session().get("user") != null) {
+			return redirect(routes.Application.index());
+		}
+		return ok(views.html.cadastrar.render(usuarioForm, ""));
 	}
 
 	private static boolean isDadosInvalidosLogin(String email, String senha) {
