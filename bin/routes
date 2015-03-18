@@ -9,6 +9,9 @@ GET     /                           controllers.Application.index()
 GET		/login						controllers.LoginController.showLoginPage()
 POST    /login                      controllers.LoginController.login()
 
+# Usuario logado
+GET		/home						controllers.Application.home()
+
 # Cadstro
 GET		/cadastro					controllers.LoginController.showCadastroPage()
 POST	/cadastro					controllers.LoginController.cadastrar()

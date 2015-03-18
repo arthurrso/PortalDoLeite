@@ -33,7 +33,7 @@ public class LoginController extends Controller {
 					"email", email).get(0);
 			session().clear();
 			session("user", user.getEmail());
-			return redirect(routes.Application.index());
+			return redirect(routes.Application.home());
 		}
 	}
 

@@ -1,9 +1,13 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 
 @Entity(name = "Usuario")
@@ -17,6 +21,9 @@ public class Usuario {
 	private String email;
 	private String senha;
 	
+	@OneToMany
+	private List<Disciplina> disciplinasCadastradas;
+	
 	public Usuario(){
 	}
 	public Usuario (String nome, String email, String senha){
@@ -24,6 +31,7 @@ public class Usuario {
 		setNome(nome);
 		setEmail(email);
 		setSenha(senha);
+		disciplinasCadastradas = new ArrayList<Disciplina>();
 	}
 	
 	
@@ -50,5 +58,15 @@ public class Usuario {
 	}
 	public Long getId() {
 		return id;
+	}
+	public void setDisciplinasCadastradas(List<Disciplina> disciplinasCadastradas) {
+		this.disciplinasCadastradas = disciplinasCadastradas;
+	}
+	public List<Disciplina> getDisciplinasCadastradas() {
+		return disciplinasCadastradas;
+	}
+	
+	public void cadastraDisciplina(Disciplina disciplina){
+		disciplinasCadastradas.add(disciplina);
 	}
 }

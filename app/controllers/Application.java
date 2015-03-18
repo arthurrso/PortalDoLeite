@@ -18,7 +18,7 @@ public class Application extends Controller {
 		if (session().get("user") == null) {
 			return redirect(routes.LoginController.showLoginPage());
 		}
-		return ok(views.html.index.render(getUsuarioLogado()));
+		return ok(views.html.home.render(getUsuarioLogado()));
 	}
     
 	@Transactional
@@ -45,6 +45,14 @@ public class Application extends Controller {
 	
 	private static List<Usuario> listaUsuariosLogados() {
 		return dao.findByAttributeName("Usuario", "email", session().get("user"));
+	}
+	
+	@Transactional
+	public static Result home(){
+		if (session().get("user") == null) {
+			return redirect(routes.LoginController.showLoginPage());
+		}
+		return ok(views.html.home.render(getUsuarioLogado()));
 	}
 
 }
