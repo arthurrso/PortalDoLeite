@@ -9,6 +9,9 @@ GET     /                           controllers.Application.index()
 GET		/login						controllers.LoginController.showLoginPage()
 POST    /login                      controllers.LoginController.login()
 
+# Sair
+GET    /logout            			controllers.LoginController.logout()
+
 # Usuario logado
 GET		/home						controllers.Application.home()
 

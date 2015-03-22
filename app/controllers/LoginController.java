@@ -36,6 +36,12 @@ public class LoginController extends Controller {
 			return redirect(routes.Application.home());
 		}
 	}
+	
+	@Transactional
+	 public static Result logout() {
+	       session().clear();
+	       return redirect(routes.Application.index());
+	 }
 
 	@Transactional
 	public static Result cadastrar() {
